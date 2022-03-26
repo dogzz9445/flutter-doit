@@ -61,7 +61,7 @@ class FlutterDoitThemeData {
 
   static const ColorScheme darkColorScheme = ColorScheme(
     primary: Color(0xFFFF8383),
-    primaryContainer: Color(0xFF000000),
+    primaryContainer: Color(0xFF1CDEC9),
     secondary: Color(0xFF4D1F7C),
     secondaryContainer: Color(0xFF451B6F),
     background: Color(0xFF241E30),
