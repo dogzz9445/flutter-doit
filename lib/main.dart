@@ -1,31 +1,59 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_doit/constants.dart';
+import 'package:flutter_doit/data/app_settings.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
+  GoogleFonts.config.allowRuntimeFetching = false;
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({
+    Key? key,
+    this.initialRoute = "",
+    this.isTestMode = false,
+  }) : super(key: key);
+
+  final String initialRoute;
+  final bool isTestMode;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+    return ModelBinding(
+        initialModel: AppSettings(
+            themeMode: ThemeMode.system,
+            textScaleFactor: systemTextScaleFactorOption,
+            customTextDirection: CustomTextDirection.localeBased,
+            locale: null,
+            timeDilation: timeDilation,
+            platform: defaultTargetPlatform,
+            isTestMode: isTestMode),
+        child: Builder(
+          builder: (context) {
+            return MaterialApp(
+              scrollBehavior:
+                  const MaterialScrollBehavior().copyWith(scrollbars: false),
+              title: 'Flutter Doit',
+              theme: ThemeData(
+                // This is the theme of your application.
+                //
+                // Try running your application with "flutter run". You'll see the
+                // application has a blue toolbar. Then, without quitting the app, try
+                // changing the primarySwatch below to Colors.green and then invoke
+                // "hot reload" (press "r" in the console where you ran "flutter run",
+                // or simply save your changes to "hot reload" in a Flutter IDE).
+                // Notice that the counter didn't reset back to zero; the application
+                // is not restarted.
+                primarySwatch: Colors.blue,
+              ),
+              home: const MyHomePage(title: 'Flutter Demo Home Page'),
+            );
+          },
+        ));
   }
 }
 
@@ -124,3 +152,18 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+// class RootPage extends StatelessWidget {
+//   const RootPage({
+//     Key? key,
+//   }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return const ApplyTextOptions(
+//       child: SplashPage(
+//         child: Backdrop(),
+//       ),
+//     );
+//   }
+// }
