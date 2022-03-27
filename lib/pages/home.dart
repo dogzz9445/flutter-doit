@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage>
   final int turnsToRotateRight = 1;
   final int turnsToRotateLeft = 3;
   final double tabOffset = 0;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   String get restorationId => 'home_page';
@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage>
         // Set state to make sure that the [_RallyTab] widgets get updated when changing tabs.
         setState(() {
           if (_tabController.index == 0) {
-            return;
+            _tabController.index = 1;
           }
           tabIndex.value = _tabController.index;
         });
@@ -70,6 +70,9 @@ class _HomePageState extends State<HomePage>
     super.dispose();
   }
 
+  // TODO:
+  // 탭 왼쪽으로 갔을 시,
+  // 메뉴 위젯으로 넘어가는 것 해결할것
   List<Widget> _buildTabs(
       {required BuildContext context,
       required ThemeData theme,
@@ -281,22 +284,31 @@ class _HomePageState extends State<HomePage>
           drawer: Drawer(
             child: ListView(
               padding: EdgeInsets.zero,
-              children: const [
-                DrawerHeader(
+              children: [
+                const DrawerHeader(
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: Color(0x24888888),
                   ),
                   child: Text(
-                    'Drawer Header',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                    'Doit 캘린더',
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 ListTile(
-                  title: Text('Item 1'),
+                  title: const Text('Doit 일정'),
+                  contentPadding: const EdgeInsets.symmetric(
+                      vertical: 0.0, horizontal: 16.0),
+                  dense: true,
+                  onTap: () => Navigator.pop(context),
+                  onLongPress: () => Navigator.pop(context),
                 ),
                 ListTile(
-                  title: Text('Item 2'),
+                  title: const Text('동기화된 일정'),
+                  contentPadding: const EdgeInsets.symmetric(
+                      vertical: 0.0, horizontal: 16.0),
+                  dense: true,
+                  onTap: () => Navigator.pop(context),
+                  onLongPress: () => Navigator.pop(context),
                 ),
               ],
             ),
