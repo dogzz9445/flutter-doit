@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_doit/constants.dart';
 import 'package:flutter_doit/data/app_settings.dart';
-import 'package:flutter_doit/pages/home.dart';
+import 'package:flutter_doit/pages/backdrop.dart';
+import 'package:flutter_doit/pages/splash.dart';
 // import 'package:flutter_doit/pages/splash.dart';
 import 'package:flutter_doit/routes.dart';
 import 'package:flutter_doit/theme/flutter_doit_theme_data.dart';
@@ -68,18 +69,18 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// class RootPage extends StatelessWidget {
-//   const RootPage({
-//     Key? key,
-//   }) : super(key: key);
+class RootPage extends StatelessWidget {
+  const RootPage({
+    Key? key,
+  }) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return const ApplyTextOptions(
-//       child: SplashPage(
-//         child: Text("hello"),
-//         // child: Backdrop(),
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return const ApplyTextOptions(
+      child: SplashPage(
+        // child: Text("hello"),
+        child: Backdrop(),
+      ),
+    );
+  }
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_doit/main.dart';
 import 'package:flutter_doit/pages/home.dart';
 
 typedef PathWidgetBuilder = Widget Function(BuildContext?, String?);
@@ -77,7 +78,7 @@ class RouteConfiguration {
     // ),
     Path(
       r'^/',
-      (context, match) => const HomePage(),
+      (context, match) => const RootPage(),
     ),
   ];
 
