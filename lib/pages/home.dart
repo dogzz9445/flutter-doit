@@ -22,7 +22,7 @@ class HomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  static const String baseRoute = '/';
+  static const String baseRoute = '/home';
   final String title;
 
   @override
@@ -36,6 +36,7 @@ class _HomePageState extends State<HomePage>
   final int tabCount = 5;
   final int turnsToRotateRight = 1;
   final int turnsToRotateLeft = 3;
+  final int tabOffset = 50;
 
   @override
   String get restorationId => 'home_page';
@@ -72,43 +73,47 @@ class _HomePageState extends State<HomePage>
     return [
       RallyTab(
         theme: theme,
-        iconData: Icons.pie_chart,
+        iconData: Icons.calendar_month,
         // title: GalleryLocalizations.of(context).rallyTitleOverview,
         title: "캘린더",
         tabIndex: 0,
         tabCount: tabCount,
         tabController: _tabController,
         isVertical: isVertical,
+        tabOffset: tabOffset,
       ),
       RallyTab(
         theme: theme,
-        iconData: Icons.attach_money,
+        iconData: Icons.check_box_outlined,
         // title: GalleryLocalizations.of(context).rallyTitleAccounts,
-        title: "투두",
+        title: "할일",
         tabIndex: 1,
         tabCount: tabCount,
         tabController: _tabController,
         isVertical: isVertical,
+        tabOffset: tabOffset,
       ),
       RallyTab(
         theme: theme,
-        iconData: Icons.money_off,
+        iconData: Icons.favorite,
         // title: GalleryLocalizations.of(context).rallyTitleBills,
         title: "활동",
         tabIndex: 2,
         tabCount: tabCount,
         tabController: _tabController,
         isVertical: isVertical,
+        tabOffset: tabOffset,
       ),
       RallyTab(
         theme: theme,
-        iconData: Icons.table_chart,
+        iconData: Icons.group,
         // title: GalleryLocalizations.of(context).rallyTitleBudgets,
         title: "그룹",
         tabIndex: 3,
         tabCount: tabCount,
         tabController: _tabController,
         isVertical: isVertical,
+        tabOffset: tabOffset,
       ),
       RallyTab(
         theme: theme,
@@ -119,6 +124,7 @@ class _HomePageState extends State<HomePage>
         tabCount: tabCount,
         tabController: _tabController,
         isVertical: isVertical,
+        tabOffset: tabOffset,
       ),
     ];
   }
@@ -209,9 +215,12 @@ class _HomePageState extends State<HomePage>
     } else {
       tabBarView = Column(
         children: [
-          RallyTabBar(
-            tabs: _buildTabs(context: context, theme: theme),
-            tabController: _tabController,
+          Align(
+            alignment: Alignment.centerRight,
+            child: RallyTabBar(
+              tabs: _buildTabs(context: context, theme: theme),
+              tabController: _tabController,
+            ),
           ),
           Expanded(
             child: TabBarView(
@@ -222,57 +231,6 @@ class _HomePageState extends State<HomePage>
         ],
       );
     }
-
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     // Here we take the value from the MyHomePage object that was created by
-    //     // the App.build method, and use it to set our appbar title.
-    //     title: Text(widget.title),
-    //   ),
-    //   body: Center(
-    //     // Center is a layout widget. It takes a single child and positions it
-    //     // in the middle of the parent.
-    //     child: Column(
-    //       // Column is also a layout widget. It takes a list of children and
-    //       // arranges them vertically. By default, it sizes itself to fit its
-    //       // children horizontally, and tries to be as tall as its parent.
-    //       //
-    //       // Invoke "debug painting" (press "p" in the console, choose the
-    //       // "Toggle Debug Paint" action from the Flutter Inspector in Android
-    //       // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-    //       // to see the wireframe for each widget.
-    //       //
-    //       // Column has various properties to control how it sizes itself and
-    //       // how it positions its children. Here we use mainAxisAlignment to
-    //       // center the children vertically; the main axis here is the vertical
-    //       // axis because Columns are vertical (the cross axis would be
-    //       // horizontal).
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       children: <Widget>[
-    //         const Text(
-    //           'You have pushed the button this many times:',
-    //         ),
-    //         Text(
-    //           '00',
-    //           style: Theme.of(context).textTheme.headline4,
-    //         ),
-    //         CalendarDatePicker(
-    //             initialDate: DateTime.now(),
-    //             firstDate: DateTime(2017),
-    //             lastDate: DateTime(2030),
-    //             onDateChanged: (pick) {
-    //               log("pick cal");
-    //             })
-    //       ],
-    //     ),
-    //   ),
-    // );
 
     return ApplyTextOptions(
       child: Scaffold(

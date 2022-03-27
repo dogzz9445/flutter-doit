@@ -33,10 +33,10 @@ class SplashPageAnimation extends InheritedWidget {
 class SplashPage extends StatefulWidget {
   const SplashPage({
     Key? key,
-    required this.child,
+    this.child,
   }) : super(key: key);
 
-  final Widget child;
+  final Widget? child;
 
   @override
   _SplashPageState createState() => _SplashPageState();
@@ -159,7 +159,7 @@ class _SplashPageState extends State<SplashPage>
                 ),
                 PositionedTransition(
                   rect: animation,
-                  child: frontLayer,
+                  child: frontLayer ?? Container(),
                 ),
               ],
             );
@@ -187,16 +187,15 @@ class _SplashBackLayer extends StatelessWidget {
     var effectAsset = 'splash_effects/splash_effect_$effect.gif';
     final flutterLogo = Image.asset(
       'assets/logo/flutter_logo.png',
-      package: 'flutter_gallery_assets',
     );
 
-    Widget child;
+    Widget? child;
     if (isSplashCollapsed) {
-      child = (isDisplayDesktop(context)
+      child = isDisplayDesktop(context)
           ? Padding(
               padding: const EdgeInsets.only(top: 50),
               child: Align(
-                alignment: Alignment.topCenter,
+                alignment: Alignment.center,
                 child: MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
@@ -206,14 +205,13 @@ class _SplashBackLayer extends StatelessWidget {
                 ),
               ),
             )
-          : null) as Widget;
+          : null;
     } else {
       child = Stack(
         children: [
           Center(
             child: Image.asset(
-              effectAsset,
-              package: 'flutter_gallery_assets',
+              'assets/logo/flutter_logo.png',
             ),
           ),
           Center(child: flutterLogo),

@@ -33,16 +33,17 @@ class RallyTabBarState extends State<RallyTabBar> {
 }
 
 class RallyTab extends StatefulWidget {
-  RallyTab({
-    Key? key,
-    required ThemeData theme,
-    required IconData iconData,
-    required String title,
-    required this.tabCount,
-    required int tabIndex,
-    required TabController tabController,
-    required this.isVertical,
-  })  : titleText = Text(title, style: theme.textTheme.button),
+  RallyTab(
+      {Key? key,
+      required ThemeData theme,
+      required IconData iconData,
+      required String title,
+      required this.tabCount,
+      required int tabIndex,
+      required TabController tabController,
+      required this.isVertical,
+      required this.tabOffset})
+      : titleText = Text(title, style: theme.textTheme.button),
         isExpanded = tabController.index == tabIndex,
         icon = Icon(iconData, semanticLabel: title),
         super(key: key);
@@ -52,6 +53,7 @@ class RallyTab extends StatefulWidget {
   final bool isExpanded;
   final bool isVertical;
   final int tabCount;
+  final int tabOffset;
 
   @override
   _RallyTabState createState() => _RallyTabState();
@@ -118,12 +120,12 @@ class _RallyTabState extends State<RallyTab>
     // units and dividing it into the screen width. Each unexpanded tab is 1
     // unit, and there is always 1 expanded tab which is 1 unit + any extra
     // space determined by the multiplier.
-    final width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.of(context).size.width - widget.tabOffset;
     const expandedTitleWidthMultiplier = 2;
     final unitWidth = width / (widget.tabCount + expandedTitleWidthMultiplier);
 
     return ConstrainedBox(
-      constraints: const BoxConstraints(minHeight: 56),
+      constraints: const BoxConstraints(minHeight: 48),
       child: Row(
         children: [
           FadeTransition(

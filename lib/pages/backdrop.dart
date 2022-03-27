@@ -9,6 +9,7 @@ import 'package:flutter_doit/constants.dart';
 import 'package:flutter_doit/data/app_settings.dart';
 import 'package:flutter_doit/layout/adaptive.dart';
 import 'package:flutter_doit/pages/home.dart';
+import 'package:flutter_doit/pages/settings.dart';
 // import 'package:gallery/pages/settings.dart';
 // import 'package:gallery/pages/settings_icon/icon.dart' as settings_icon;
 
@@ -51,8 +52,7 @@ class _BackdropState extends State<Backdrop> with TickerProviderStateMixin {
     );
     _settingsPageFocusNode = FocusNode();
     _isSettingsOpenNotifier = ValueNotifier(false);
-    // TODO: ADD Settings Page
-    _settingsPage = widget.settingsPage ?? const HomePage();
+    _settingsPage = widget.settingsPage ?? const SettingsPage();
     // SettingsPage(
     //   animationController: _settingsPanelController,
     // );
