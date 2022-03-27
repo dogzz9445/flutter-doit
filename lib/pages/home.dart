@@ -32,11 +32,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin, RestorationMixin {
   late TabController _tabController;
-  RestorableInt tabIndex = RestorableInt(0);
-  final int tabCount = 5;
+  RestorableInt tabIndex = RestorableInt(1);
+  final int tabCount = 6;
   final int turnsToRotateRight = 1;
   final int turnsToRotateLeft = 3;
-  final double tabOffset = 50;
+  final double tabOffset = 0;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   String get restorationId => 'home_page';
@@ -54,6 +55,9 @@ class _HomePageState extends State<HomePage>
       ..addListener(() {
         // Set state to make sure that the [_RallyTab] widgets get updated when changing tabs.
         setState(() {
+          if (_tabController.index == 0) {
+            return;
+          }
           tabIndex.value = _tabController.index;
         });
       });
@@ -71,12 +75,15 @@ class _HomePageState extends State<HomePage>
       required ThemeData theme,
       bool isVertical = false}) {
     return [
+      IconButton(
+          icon: const Icon(Icons.menu),
+          onPressed: () => _scaffoldKey.currentState?.openDrawer()),
       RallyTab(
         theme: theme,
         iconData: Icons.calendar_month,
         // title: GalleryLocalizations.of(context).rallyTitleOverview,
         title: "캘린더",
-        tabIndex: 0,
+        tabIndex: 1,
         tabCount: tabCount,
         tabController: _tabController,
         isVertical: isVertical,
@@ -87,7 +94,7 @@ class _HomePageState extends State<HomePage>
         iconData: Icons.check_box_outlined,
         // title: GalleryLocalizations.of(context).rallyTitleAccounts,
         title: "할일",
-        tabIndex: 1,
+        tabIndex: 2,
         tabCount: tabCount,
         tabController: _tabController,
         isVertical: isVertical,
@@ -98,7 +105,7 @@ class _HomePageState extends State<HomePage>
         iconData: Icons.favorite,
         // title: GalleryLocalizations.of(context).rallyTitleBills,
         title: "활동",
-        tabIndex: 2,
+        tabIndex: 3,
         tabCount: tabCount,
         tabController: _tabController,
         isVertical: isVertical,
@@ -109,7 +116,7 @@ class _HomePageState extends State<HomePage>
         iconData: Icons.group,
         // title: GalleryLocalizations.of(context).rallyTitleBudgets,
         title: "그룹",
-        tabIndex: 3,
+        tabIndex: 4,
         tabCount: tabCount,
         tabController: _tabController,
         isVertical: isVertical,
@@ -120,7 +127,7 @@ class _HomePageState extends State<HomePage>
         iconData: Icons.settings,
         // title: GalleryLocalizations.of(context).rallyTitleSettings,
         title: "설정",
-        tabIndex: 4,
+        tabIndex: 5,
         tabCount: tabCount,
         tabController: _tabController,
         isVertical: isVertical,
@@ -131,6 +138,7 @@ class _HomePageState extends State<HomePage>
 
   List<Widget> _buildTabViews() {
     return const [
+      Text("Menu"),
       CalenderView(),
       TodoView(),
       ActivityView(),
@@ -234,42 +242,65 @@ class _HomePageState extends State<HomePage>
 
     return ApplyTextOptions(
       child: Scaffold(
-        body: SafeArea(
-          // For desktop layout we do not want to have SafeArea at the top and
-          // bottom to display 100% height content on the accounts view.
-          top: !isDesktop,
-          bottom: !isDesktop,
-          child: Theme(
-            // This theme effectively removes the default visual touch
-            // feedback for tapping a tab, which is replaced with a custom
-            // animation.
-            data: theme.copyWith(
-              inputDecorationTheme: const InputDecorationTheme(
-                labelStyle: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500,
+          key: _scaffoldKey,
+          body: SafeArea(
+            // For desktop layout we do not want to have SafeArea at the top and
+            // bottom to display 100% height content on the accounts view.
+            top: !isDesktop,
+            bottom: !isDesktop,
+            child: Theme(
+              // This theme effectively removes the default visual touch
+              // feedback for tapping a tab, which is replaced with a custom
+              // animation.
+              data: theme.copyWith(
+                inputDecorationTheme: const InputDecorationTheme(
+                  labelStyle: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  filled: true,
+                  fillColor: Colors.black,
+                  focusedBorder: InputBorder.none,
                 ),
-                filled: true,
-                fillColor: Colors.black,
-                focusedBorder: InputBorder.none,
+                primaryColor: Colors.black,
+                // splashColor: Colors.transparent,
+                // highlightColor: Colors.transparent,
+                appBarTheme: const AppBarTheme(
+                  systemOverlayStyle: SystemUiOverlayStyle.light,
+                  // backgroundColor: RallyColors.primaryBackground,
+                  backgroundColor: Colors.black,
+                  elevation: 0,
+                ),
               ),
-              primaryColor: Colors.black,
-              // splashColor: Colors.transparent,
-              // highlightColor: Colors.transparent,
-              appBarTheme: const AppBarTheme(
-                systemOverlayStyle: SystemUiOverlayStyle.light,
-                // backgroundColor: RallyColors.primaryBackground,
-                backgroundColor: Colors.black,
-                elevation: 0,
+              child: FocusTraversalGroup(
+                policy: OrderedTraversalPolicy(),
+                child: tabBarView,
               ),
-            ),
-            child: FocusTraversalGroup(
-              policy: OrderedTraversalPolicy(),
-              child: tabBarView,
             ),
           ),
-        ),
-      ),
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: const [
+                DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                  ),
+                  child: Text(
+                    'Drawer Header',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                ListTile(
+                  title: Text('Item 1'),
+                ),
+                ListTile(
+                  title: Text('Item 2'),
+                ),
+              ],
+            ),
+          )),
     );
   }
 }

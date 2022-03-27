@@ -120,7 +120,7 @@ class _RallyTabState extends State<RallyTab>
     // units and dividing it into the screen width. Each unexpanded tab is 1
     // unit, and there is always 1 expanded tab which is 1 unit + any extra
     // space determined by the multiplier.
-    final width = MediaQuery.of(context).size.width - widget.tabOffset;
+    final width = MediaQuery.of(context).size.width;
     const expandedTitleWidthMultiplier = 2;
     final unitWidth = width / (widget.tabCount + expandedTitleWidthMultiplier);
 

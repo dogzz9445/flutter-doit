@@ -34,48 +34,6 @@ class RouteConfiguration {
       r'^' + HomePage.baseRoute + r'/([\w-]+)$',
       (context, match) => const HomePage(),
     ),
-    // Path(
-    //   r'^' + rally_routes.homeRoute,
-    //   (context, match) => StudyWrapper(
-    //     study: DeferredWidget(rally.loadLibrary,
-    //         () => rally.RallyApp()), // ignore: prefer_const_constructors
-    //   ),
-    // ),
-    // Path(
-    //   r'^' + shrine_routes.homeRoute,
-    //   (context, match) => StudyWrapper(
-    //     study: DeferredWidget(shrine.loadLibrary,
-    //         () => shrine.ShrineApp()), // ignore: prefer_const_constructors
-    //   ),
-    // ),
-    // Path(
-    //   r'^' + crane_routes.defaultRoute,
-    //   (context, match) => StudyWrapper(
-    //     study: DeferredWidget(crane.loadLibrary,
-    //         () => crane.CraneApp(), // ignore: prefer_const_constructors
-    //         placeholder: const DeferredLoadingPlaceholder(name: 'Crane')),
-    //   ),
-    // ),
-    // Path(
-    //   r'^' + fortnightly_routes.defaultRoute,
-    //   (context, match) => StudyWrapper(
-    //     study: DeferredWidget(
-    //         fortnightly.loadLibrary,
-    //         // ignore: prefer_const_constructors
-    //         () => fortnightly.FortnightlyApp()),
-    //   ),
-    // ),
-    // Path(
-    //     r'^' + reply_routes.homeRoute,
-    //     // ignore: prefer_const_constructors
-    //     (context, match) =>
-    //         const StudyWrapper(study: reply.ReplyApp(), hasBottomNavBar: true)),
-    // Path(
-    //   r'^' + starter_app_routes.defaultRoute,
-    //   (context, match) => const StudyWrapper(
-    //     study: starter_app.StarterApp(),
-    //   ),
-    // ),
     Path(
       r'^/',
       (context, match) => const RootPage(),
