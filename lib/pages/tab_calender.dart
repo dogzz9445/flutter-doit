@@ -12,6 +12,11 @@ class _CalenderViewState extends State<CalenderView>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return const Text("Calenders");
+    return CalendarDatePicker(
+      firstDate: DateTime(2017),
+      initialDate: DateTime.now(),
+      lastDate: DateTime(2030),
+      onDateChanged: (DateTime value) {},
+    );
   }
 }

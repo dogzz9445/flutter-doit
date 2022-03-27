@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage>
   final int tabCount = 5;
   final int turnsToRotateRight = 1;
   final int turnsToRotateLeft = 3;
-  final int tabOffset = 50;
+  final double tabOffset = 50;
 
   @override
   String get restorationId => 'home_page';
@@ -215,8 +215,8 @@ class _HomePageState extends State<HomePage>
     } else {
       tabBarView = Column(
         children: [
-          Align(
-            alignment: Alignment.centerRight,
+          Padding(
+            padding: EdgeInsets.only(left: tabOffset),
             child: RallyTabBar(
               tabs: _buildTabs(context: context, theme: theme),
               tabController: _tabController,
@@ -244,24 +244,25 @@ class _HomePageState extends State<HomePage>
             // feedback for tapping a tab, which is replaced with a custom
             // animation.
             data: theme.copyWith(
-                inputDecorationTheme: const InputDecorationTheme(
-                  labelStyle: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  filled: true,
-                  fillColor: Colors.black,
-                  focusedBorder: InputBorder.none,
+              inputDecorationTheme: const InputDecorationTheme(
+                labelStyle: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500,
                 ),
-                primaryColor: Colors.black,
-                // splashColor: Colors.transparent,
-                // highlightColor: Colors.transparent,
-                appBarTheme: const AppBarTheme(
-                  systemOverlayStyle: SystemUiOverlayStyle.light,
-                  // backgroundColor: RallyColors.primaryBackground,
-                  backgroundColor: Colors.black,
-                  elevation: 0,
-                )),
+                filled: true,
+                fillColor: Colors.black,
+                focusedBorder: InputBorder.none,
+              ),
+              primaryColor: Colors.black,
+              // splashColor: Colors.transparent,
+              // highlightColor: Colors.transparent,
+              appBarTheme: const AppBarTheme(
+                systemOverlayStyle: SystemUiOverlayStyle.light,
+                // backgroundColor: RallyColors.primaryBackground,
+                backgroundColor: Colors.black,
+                elevation: 0,
+              ),
+            ),
             child: FocusTraversalGroup(
               policy: OrderedTraversalPolicy(),
               child: tabBarView,

@@ -53,7 +53,7 @@ class RallyTab extends StatefulWidget {
   final bool isExpanded;
   final bool isVertical;
   final int tabCount;
-  final int tabOffset;
+  final double tabOffset;
 
   @override
   _RallyTabState createState() => _RallyTabState();
