@@ -5,11 +5,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_doit/constants.dart';
-import 'package:flutter_doit/data/app_settings.dart';
-import 'package:flutter_doit/layout/adaptive.dart';
-import 'package:flutter_doit/pages/home.dart';
-import 'package:flutter_doit/pages/settings.dart';
+import 'package:doit_calendar_todo/constants.dart';
+import 'package:doit_calendar_todo/data/app_settings.dart';
+import 'package:doit_calendar_todo/layout/adaptive.dart';
+import 'package:doit_calendar_todo/pages/home.dart';
+import 'package:doit_calendar_todo/pages/settings.dart';
 // import 'package:gallery/pages/settings.dart';
 // import 'package:gallery/pages/settings_icon/icon.dart' as settings_icon;
 

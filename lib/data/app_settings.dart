@@ -7,7 +7,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:flutter/services.dart' show SystemUiOverlayStyle;
-import 'package:flutter_doit/constants.dart';
+import 'package:doit_calendar_todo/constants.dart';
 
 enum CustomTextDirection {
   localeBased,

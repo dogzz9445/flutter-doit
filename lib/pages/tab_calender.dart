@@ -11,6 +11,7 @@ class CalenderView extends StatefulWidget {
 
 class _CalenderViewState extends State<CalenderView>
     with SingleTickerProviderStateMixin {
+  CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
@@ -23,14 +24,34 @@ class _CalenderViewState extends State<CalenderView>
     //   onDateChanged: (DateTime value) {},
     // );
     return TableCalendar(
-        firstDay: DateTime.utc(2017),
-        lastDay: DateTime.utc(2030),
-        focusedDay: _focusedDay,
-        onDaySelected: (selectedDay, focusedDay) {
+      calendarFormat: _calendarFormat,
+      firstDay: DateTime.utc(2017),
+      lastDay: DateTime.utc(2030),
+      focusedDay: _focusedDay,
+      selectedDayPredicate: (day) {
+        // Use `selectedDayPredicate` to determine which day is currently selected.
+        // If this returns true, then `day` will be marked as selected.
+
+        // Using `isSameDay` is recommended to disregard
+        // the time-part of compared DateTime objects.
+        return isSameDay(_selectedDay, day);
+      },
+      onDaySelected: (selectedDay, focusedDay) {
+        if (!isSameDay(_selectedDay, selectedDay)) {
           setState(() {
             _selectedDay = selectedDay;
             _focusedDay = focusedDay; // update `_focusedDay` here as well
           });
-        });
+        }
+      },
+      onFormatChanged: (format) {
+        if (_calendarFormat != format) {
+          // Call `setState()` when updating calendar format
+          setState(() {
+            _calendarFormat = format;
+          });
+        }
+      },
+    );
   }
 }
