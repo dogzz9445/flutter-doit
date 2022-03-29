@@ -12,6 +12,8 @@ class _TodoViewState extends State<TodoView>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return const Text("Todos");
+    return Row(
+      children: [const Text("지나간 할일"), const Text("다가오는 일")],
+    );
   }
 }

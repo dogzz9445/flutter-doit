@@ -6,7 +6,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'package:flutter_doit/data/app_settings.dart';
+import 'package:doit_calendar_todo/data/app_settings.dart';
 
 double _textScaleFactor(BuildContext context) {
   return AppSettings.of(context).textScaleFactor(context);

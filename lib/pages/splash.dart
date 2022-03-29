@@ -5,8 +5,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_doit/constants.dart';
-import 'package:flutter_doit/layout/adaptive.dart';
+import 'package:doit_calendar_todo/constants.dart';
+import 'package:doit_calendar_todo/layout/adaptive.dart';
 
 const homePeekDesktop = 210.0;
 const homePeekMobile = 60.0;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_doit/main.dart';
-import 'package:flutter_doit/pages/home.dart';
+import 'package:doit_calendar_todo/main.dart';
+import 'package:doit_calendar_todo/pages/home.dart';
 
 typedef PathWidgetBuilder = Widget Function(BuildContext?, String?);
 

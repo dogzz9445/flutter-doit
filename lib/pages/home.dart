@@ -1,14 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_doit/data/app_settings.dart';
-import 'package:flutter_doit/layout/adaptive.dart';
-import 'package:flutter_doit/layout/rally_tab.dart';
-import 'package:flutter_doit/layout/text_scale.dart';
-import 'package:flutter_doit/pages/tab_activity.dart';
-import 'package:flutter_doit/pages/tab_calender.dart';
-import 'package:flutter_doit/pages/tab_friend.dart';
-import 'package:flutter_doit/pages/tab_setting.dart';
-import 'package:flutter_doit/pages/tab_todo.dart';
+import 'package:doit_calendar_todo/data/app_settings.dart';
+import 'package:doit_calendar_todo/layout/adaptive.dart';
+import 'package:doit_calendar_todo/layout/rally_tab.dart';
+import 'package:doit_calendar_todo/layout/text_scale.dart';
+import 'package:doit_calendar_todo/pages/tab_activity.dart';
+import 'package:doit_calendar_todo/pages/tab_calender.dart';
+import 'package:doit_calendar_todo/pages/tab_friend.dart';
+import 'package:doit_calendar_todo/pages/tab_setting.dart';
+import 'package:doit_calendar_todo/pages/tab_todo.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, this.title = "Home Page"}) : super(key: key);
@@ -150,6 +152,17 @@ class _HomePageState extends State<HomePage>
     ];
   }
 
+  Future<UserCredential> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser!.authentication;
+    final OAuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -176,8 +189,7 @@ class _HomePageState extends State<HomePage>
                   child: SizedBox(
                     height: 80,
                     child: Image.asset(
-                      'logo.png',
-                      package: 'rally_assets',
+                      'assets/logo/logo.png',
                     ),
                   ),
                 ),
