@@ -7,13 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class TodoCalendar extends StatefulWidget {
-  TodoCalendar({Key? key, required this.schedules}) : super(key: key);
+  const TodoCalendar(
+      {Key? key, required this.schedules, required this.selectedSchedules})
+      : super(key: key);
 
   final List<Schedule> schedules;
-  final hashSchedules = LinkedHashMap<DateTime, List<Schedule>>(
-    equals: isSameDay,
-    hashCode: getHashCode,
-  );
+  final ValueNotifier<List<Schedule>> selectedSchedules;
+
+  List<Schedule> getSchedulesForDay(day) {
+    return schedules
+        .where((element) => isSameDay(element.scheduleDate, day))
+        .toList();
+  }
 
   @override
   _TodoCalendarState createState() => _TodoCalendarState();
@@ -25,16 +30,25 @@ class _TodoCalendarState extends State<TodoCalendar>
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
-  final ValueNotifier<List<Schedule>> _selectedSchedules = ValueNotifier([]);
+  @override
+  void initState() {
+    super.initState();
 
-  List<Schedule> _getSchedulesForDay(day) {
-    return widget.hashSchedules[day] ?? [];
+    loadTestData();
+    setState(() {
+      _selectedDay = DateTime.now();
+    });
+    widget.selectedSchedules.value = widget.getSchedulesForDay(_selectedDay);
+  }
+
+  void loadTestData() {
+    widget.schedules.addAll(kSchedules.values.first);
   }
 
   @override
   Widget build(BuildContext context) {
     return TableCalendar<Schedule>(
-      locale: deviceLocale,
+      locale: deviceLocale.toString(),
       calendarFormat: _calendarFormat,
       firstDay: DateTime.utc(2017),
       lastDay: DateTime.utc(2030),
@@ -42,7 +56,7 @@ class _TodoCalendarState extends State<TodoCalendar>
       // daysOfWeekStyle: DaysOfWeekStyle(dowTextFormatter: (day, locale) {
       //   return DateFormat.E(locale).format(day);
       // }),
-      eventLoader: _getSchedulesForDay,
+      eventLoader: widget.getSchedulesForDay,
       selectedDayPredicate: (day) {
         return isSameDay(_selectedDay, day);
       },
@@ -53,7 +67,8 @@ class _TodoCalendarState extends State<TodoCalendar>
             _focusedDay = focusedDay; // update `_focusedDay` here as well
           });
 
-          _selectedSchedules.value = _getSchedulesForDay(selectedDay);
+          widget.selectedSchedules.value =
+              widget.getSchedulesForDay(selectedDay);
         }
       },
       onFormatChanged: (format) {

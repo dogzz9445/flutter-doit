@@ -18,40 +18,54 @@ class _CalenderViewState extends State<CalenderView>
     with SingleTickerProviderStateMixin {
   final ValueNotifier<List<Schedule>> _selectedSchedules = ValueNotifier([]);
 
-  late List<Schedule> managedSchedules;
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      TodoCalendar(schedules: context.watch<AppCalenderScheduler>().schedules),
-      const SizedBox(height: 8.0),
+      TodoCalendar(
+          schedules: context.watch<AppCalenderScheduler>().schedules,
+          selectedSchedules: _selectedSchedules),
+      const SizedBox(height: 3.0),
       Expanded(
         child: ValueListenableBuilder<List<Schedule>>(
           valueListenable: _selectedSchedules,
           builder: (context, value, _) {
             return ListView.builder(
+              itemExtent: 56,
               itemCount: value.length,
               itemBuilder: (context, index) {
                 return Container(
                   margin: const EdgeInsets.symmetric(
                     horizontal: 12.0,
-                    vertical: 2.0,
+                    vertical: 4.0,
                   ),
-                  decoration: BoxDecoration(
-                    border: Border.all(),
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: const Color(0xFFE6EBEB),
-                    boxShadow: [
-                      const BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 2.0,
-                          spreadRadius: 2.0,
-                          offset: Offset(4, 4))
-                    ],
-                  ),
-                  child: ListTile(
-                    onTap: () => print('${value[index]}'),
-                    title: Text('${value[index]}'),
-                  ),
+                  child: InkWell(
+                      customBorder: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      splashColor: Colors.red,
+                      hoverColor: const Color(0x88080808),
+                      onTap: () {
+                        print('${value[index]}');
+                        setState(() {});
+                      },
+                      child: Ink(
+                          decoration: BoxDecoration(
+                              color: const Color(0xFFE6EBEB),
+                              borderRadius: BorderRadius.circular(8.0),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 2.0,
+                                    spreadRadius: 2.0,
+                                    offset: Offset(2, 2))
+                              ]),
+                          child: ListTile(
+                            dense: true,
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 0.0, horizontal: 16.0),
+                            title: Text('${value[index]}'),
+                            trailing: const Icon(Icons.navigate_next),
+                          ))),
                 );
               },
             );

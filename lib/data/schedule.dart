@@ -85,7 +85,7 @@ int getHashCode(DateTime key) {
 final _kScheduleSource = {
   for (var item in List.generate(50, (index) => index))
     DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5): List.generate(
-        item % 6 + 1, (index) => Schedule(title: 'Event $item | ${index + 1}'))
+        item % 6 + 1, (index) => Schedule(title: '이벤트 $item | ${index + 1}'))
 }..addAll({
     kToday: [
       Schedule(title: 'Today\'s Event 1'),
