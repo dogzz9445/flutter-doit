@@ -1,6 +1,5 @@
 import 'dart:collection';
 import 'dart:core';
-import 'dart:core';
 
 import 'package:intl/intl.dart';
 
@@ -42,7 +41,7 @@ class Schedule extends ChangeNotifier {
 
   DateTime get scheduleDate => _scheduleDate ??= DateTime.now();
   set scheduleDate(DateTime value) {
-    if (scheduleDate == value) {
+    if (isSameDay(scheduleDate, value)) {
       return;
     }
     _scheduleDate = value;
@@ -53,6 +52,23 @@ class Schedule extends ChangeNotifier {
   String toString() => title;
 }
 
+class AppCalenderScheduler extends ChangeNotifier {
+  AppCalenderScheduler();
+  final schedules = <Schedule>[];
+
+  void add(Schedule schedule) {
+    schedule.addListener(notifyListeners);
+    schedules.add(schedule);
+    notifyListeners();
+  }
+
+  void remove(Schedule schedule) {
+    schedule.removeListener(notifyListeners);
+    schedules.remove(schedule);
+    notifyListeners();
+  }
+}
+
 final kSchedules = LinkedHashMap<DateTime, List<Schedule>>(
   equals: isSameDay,
   hashCode: getHashCode,
@@ -60,23 +76,6 @@ final kSchedules = LinkedHashMap<DateTime, List<Schedule>>(
 
 int getHashCode(DateTime key) {
   return key.day * 1000000 + key.month * 10000 + key.year;
-}
-
-class AppCalenderScheduler extends ChangeNotifier {
-  AppCalenderScheduler();
-  final _schedules = <Schedule>[];
-
-  void add(Schedule schedule) {
-    schedule.addListener(notifyListeners);
-    _schedules.add(schedule);
-    notifyListeners();
-  }
-
-  void remove(Schedule schedule) {
-    schedule.removeListener(notifyListeners);
-    _schedules.remove(schedule);
-    notifyListeners();
-  }
 }
 
 // final _kScheduleSource = Map.fromIterable(List.generate(50, (index) => index),
