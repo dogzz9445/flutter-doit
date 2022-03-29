@@ -4,6 +4,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:provider/provider.dart';
 import 'package:doit_calendar_todo/constants.dart';
 import 'package:doit_calendar_todo/data/app_settings.dart';
 import 'package:doit_calendar_todo/pages/backdrop.dart';
@@ -83,6 +84,7 @@ class RootPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const ApplyTextOptions(
       child: SplashPage(
+        child: ChangeNotifierProvier
         child: HomePage(),
       ),
     );

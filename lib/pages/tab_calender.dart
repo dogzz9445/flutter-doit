@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'package:doit_calendar_todo/data/app_settings.dart';
 import 'package:intl/intl.dart';
 
 import 'package:doit_calendar_todo/data/schedule.dart';
