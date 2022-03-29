@@ -1,3 +1,4 @@
+import 'package:doit_calendar_todo/data/schedule.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -82,11 +83,12 @@ class RootPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ApplyTextOptions(
+    return ApplyTextOptions(
       child: SplashPage(
-        child: ChangeNotifierProvier
-        child: HomePage(),
-      ),
+          child: ChangeNotifierProvider(
+        create: (_) => AppCalenderScheduler(),
+        child: const HomePage(),
+      )),
     );
   }
 }
