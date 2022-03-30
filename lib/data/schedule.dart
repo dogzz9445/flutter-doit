@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:core';
 
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
@@ -99,6 +100,7 @@ class Schedule extends ChangeNotifier {
 class AppCalenderScheduler extends ChangeNotifier {
   AppCalenderScheduler();
   final schedules = <Schedule>[];
+  final selectedSchedules = ValueNotifier<List<Schedule>>([]);
 
   void add(Schedule schedule) {
     schedule.addListener(notifyListeners);
