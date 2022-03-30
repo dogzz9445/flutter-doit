@@ -42,6 +42,7 @@ class _TodoCalendarState extends State<TodoCalendar>
   }
 
   void loadTestData() {
+    widget.schedules.clear();
     widget.schedules.addAll(kSchedules.values.first);
   }
 
