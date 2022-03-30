@@ -53,6 +53,7 @@ class _TodoCalendarState extends State<TodoCalendar>
       firstDay: DateTime.utc(2017),
       lastDay: DateTime.utc(2030),
       focusedDay: _focusedDay,
+      daysOfWeekHeight: 22.0,
       // daysOfWeekStyle: DaysOfWeekStyle(dowTextFormatter: (day, locale) {
       //   return DateFormat.E(locale).format(day);
       // }),

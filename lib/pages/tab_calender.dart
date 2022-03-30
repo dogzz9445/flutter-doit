@@ -42,11 +42,8 @@ class _CalenderViewState extends State<CalenderView>
                       customBorder: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                      splashColor: Colors.red,
-                      hoverColor: const Color(0x88080808),
                       onTap: () {
                         print('${value[index]}');
-                        setState(() {});
                       },
                       child: Ink(
                           decoration: BoxDecoration(
@@ -61,6 +58,7 @@ class _CalenderViewState extends State<CalenderView>
                               ]),
                           child: ListTile(
                             dense: true,
+                            leading: const Icon(Icons.navigate_next),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 0.0, horizontal: 16.0),
                             title: Text('${value[index]}'),

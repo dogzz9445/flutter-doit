@@ -8,18 +8,53 @@ import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:flutter/services.dart' show SystemUiOverlayStyle;
 import 'package:table_calendar/table_calendar.dart';
 
+class Repository extends ChangeNotifier {
+  Repository({
+    required String title,
+    Color? color,
+  })  : _title = title,
+        _color = color;
+
+  String _title;
+  Color? _color;
+
+  String get title => _title;
+  set title(String value) {
+    if (_title == value) {
+      return;
+    }
+    _title = value;
+    notifyListeners();
+  }
+
+  Color get color => _color ??= Colors.grey;
+  set color(Color value) {
+    if (_color == value) {
+      return;
+    }
+    _color = value;
+    notifyListeners();
+  }
+
+  @override
+  String toString() => title;
+}
+
 class Schedule extends ChangeNotifier {
   Schedule({
     required String title,
     DateTime? scheduleDate,
     String? description,
+    Color? color,
   })  : _description = description,
+        _color = color,
         _title = title,
         _scheduleDate = scheduleDate;
 
   String _title;
   String? _description;
   DateTime? _scheduleDate;
+  Color? _color;
 
   String get title => _title;
   set title(String value) {
@@ -45,6 +80,15 @@ class Schedule extends ChangeNotifier {
       return;
     }
     _scheduleDate = value;
+    notifyListeners();
+  }
+
+  Color get color => _color ??= Colors.grey;
+  set color(Color value) {
+    if (_color == value) {
+      return;
+    }
+    _color = value;
     notifyListeners();
   }
 
