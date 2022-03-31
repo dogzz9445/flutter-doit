@@ -101,6 +101,7 @@ class AppCalenderScheduler extends ChangeNotifier {
   AppCalenderScheduler();
   final schedules = <Schedule>[];
   final selectedSchedules = ValueNotifier<List<Schedule>>([]);
+  final todoSchedules = <Schedule>[];
 
   void add(Schedule schedule) {
     schedule.addListener(notifyListeners);
