@@ -35,16 +35,16 @@ class _CalenderViewState extends State<CalenderView>
                     horizontal: 12.0,
                     vertical: 4.0,
                   ),
-                  decoration: BoxDecoration(
-                      color: const Color(0xFFE6EBEB),
-                      borderRadius: BorderRadius.circular(8.0),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 2.0,
-                            spreadRadius: 2.0,
-                            offset: Offset(2, 2))
-                      ]),
+                  // decoration: BoxDecoration(
+                  //     color: const Color(0x00E6EBEB),
+                  //     borderRadius: BorderRadius.circular(8.0),
+                  //     boxShadow: const [
+                  //       BoxShadow(
+                  //           color: Colors.black12,
+                  //           blurRadius: 2.0,
+                  //           spreadRadius: 2.0,
+                  //           offset: Offset(2, 2))
+                  //     ]),
                   child: InkWell(
                       customBorder: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -52,6 +52,8 @@ class _CalenderViewState extends State<CalenderView>
                       onTap: () {
                         print('${value[index]}');
                       },
+                      splashColor:
+                          Color.lerp(Color(0xFFEEEEEE), Color(0xFF888888), 0.5),
                       child: Container(
                           child: ListTile(
                         dense: true,
