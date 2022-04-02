@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:flutter/services.dart' show SystemUiOverlayStyle;
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Repository extends ChangeNotifier {
@@ -98,10 +99,22 @@ class Schedule extends ChangeNotifier {
 }
 
 class AppCalenderScheduler extends ChangeNotifier {
-  AppCalenderScheduler();
+  AppCalenderScheduler() {
+    // Provider.of<AppCalenderScheduler>(context, listen: true)
+    //     .selectedSchedules
+    //     .value = getSchedulesForDay(selectedDay);
+  }
+
   final schedules = <Schedule>[];
   final selectedSchedules = ValueNotifier<List<Schedule>>([]);
-  final todoSchedules = <Schedule>[];
+  final todoSchedules = ValueNotifier<List<Schedule>>([]);
+
+  DateTime? _selectedDay = DateTime.now();
+  DateTime get selectedDay => _selectedDay ?? DateTime.now();
+  set selectedDay(DateTime? day) {
+    _selectedDay = day ?? DateTime.now();
+    selectedSchedules.value = getSchedulesForDay(_selectedDay);
+  }
 
   void add(Schedule schedule) {
     schedule.addListener(notifyListeners);
@@ -113,6 +126,18 @@ class AppCalenderScheduler extends ChangeNotifier {
     schedule.removeListener(notifyListeners);
     schedules.remove(schedule);
     notifyListeners();
+  }
+
+  void removeAll() {
+    schedules.clear();
+    selectedSchedules.value.clear();
+    todoSchedules.value.clear();
+  }
+
+  List<Schedule> getSchedulesForDay(day) {
+    return schedules
+        .where((element) => isSameDay(element.scheduleDate, day))
+        .toList();
   }
 }
 

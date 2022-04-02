@@ -29,10 +29,9 @@ class _TodoCalendarState extends State<TodoCalendar>
     loadTestData();
     setState(() {
       _selectedDay = DateTime.now();
+      Provider.of<AppCalenderScheduler>(context, listen: false).selectedDay =
+          _selectedDay ?? DateTime.now();
     });
-    Provider.of<AppCalenderScheduler>(context, listen: false)
-        .selectedSchedules
-        .value = getSchedulesForDay(_selectedDay);
   }
 
   List<Schedule> getSchedulesForDay(day) {
@@ -68,8 +67,7 @@ class _TodoCalendarState extends State<TodoCalendar>
             _selectedDay = selectedDay;
             _focusedDay = focusedDay; // update `_focusedDay` here as well
             Provider.of<AppCalenderScheduler>(context, listen: false)
-                .selectedSchedules
-                .value = getSchedulesForDay(selectedDay);
+                .selectedDay = selectedDay;
           });
         }
       },

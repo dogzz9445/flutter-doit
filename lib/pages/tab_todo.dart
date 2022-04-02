@@ -22,9 +22,9 @@ class _TodoViewState extends State<TodoView>
                 context.watch<AppCalenderScheduler>().todoSchedules;
 
             return ListView.builder(
-                itemCount: todoSchedules.length,
+                itemCount: todoSchedules.value.length,
                 itemBuilder: (context, index) {
-                  var schedule = todoSchedules[index];
+                  var schedule = todoSchedules.value[index];
                   return ListTile(title: Text(schedule.title));
                 });
           },
