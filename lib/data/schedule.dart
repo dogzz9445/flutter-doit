@@ -58,6 +58,8 @@ class Schedule extends ChangeNotifier {
   DateTime? _scheduleDate;
   Color? _color;
 
+  bool isChecked = false;
+
   String get title => _title;
   set title(String value) {
     if (_title == value) {
@@ -100,9 +102,11 @@ class Schedule extends ChangeNotifier {
 
 class AppCalenderScheduler extends ChangeNotifier {
   AppCalenderScheduler() {
-    // Provider.of<AppCalenderScheduler>(context, listen: true)
-    //     .selectedSchedules
-    //     .value = getSchedulesForDay(selectedDay);
+    loadTestData();
+    todoSchedules.value.addAll(getSchedulesForTodo());
+    addListener(() {
+      todoSchedules.value = getSchedulesForTodo();
+    });
   }
 
   final schedules = <Schedule>[];
@@ -111,14 +115,20 @@ class AppCalenderScheduler extends ChangeNotifier {
 
   DateTime? _selectedDay = DateTime.now();
   DateTime get selectedDay => _selectedDay ?? DateTime.now();
+
   set selectedDay(DateTime? day) {
     _selectedDay = day ?? DateTime.now();
-    selectedSchedules.value = getSchedulesForDay(_selectedDay);
+    selectedSchedules.value = getSchedulesForSeletedDay(_selectedDay);
   }
 
   void add(Schedule schedule) {
     schedule.addListener(notifyListeners);
     schedules.add(schedule);
+    notifyListeners();
+  }
+
+  void addAll(List<Schedule> schedules) {
+    this.schedules.addAll(schedules);
     notifyListeners();
   }
 
@@ -128,13 +138,23 @@ class AppCalenderScheduler extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeAll() {
+  void clear() {
     schedules.clear();
     selectedSchedules.value.clear();
     todoSchedules.value.clear();
   }
 
-  List<Schedule> getSchedulesForDay(day) {
+  void loadTestData() {
+    clear();
+    addAll(kSchedules.values.first);
+    selectedDay = DateTime.now();
+  }
+
+  List<Schedule> getSchedulesForTodo() {
+    return schedules.where((element) => element.isChecked == false).toList();
+  }
+
+  List<Schedule> getSchedulesForSeletedDay(day) {
     return schedules
         .where((element) => isSameDay(element.scheduleDate, day))
         .toList();

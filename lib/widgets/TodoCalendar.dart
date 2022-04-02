@@ -20,29 +20,12 @@ class _TodoCalendarState extends State<TodoCalendar>
     with SingleTickerProviderStateMixin {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
-
-  @override
-  void initState() {
-    super.initState();
-
-    loadTestData();
-    setState(() {
-      _selectedDay = DateTime.now();
-      Provider.of<AppCalenderScheduler>(context, listen: false).selectedDay =
-          _selectedDay ?? DateTime.now();
-    });
-  }
+  DateTime? _selectedDay = DateTime.now();
 
   List<Schedule> getSchedulesForDay(day) {
     return widget.schedules
         .where((element) => isSameDay(element.scheduleDate, day))
         .toList();
-  }
-
-  void loadTestData() {
-    widget.schedules.clear();
-    widget.schedules.addAll(kSchedules.values.first);
   }
 
   @override
