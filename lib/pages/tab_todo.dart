@@ -1,4 +1,6 @@
+import 'package:doit_calendar_todo/data/schedule.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 /// A page that shows a summary of bills.
 class TodoView extends StatefulWidget {
@@ -13,7 +15,20 @@ class _TodoViewState extends State<TodoView>
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [const Text("지나간 할일"), const Text("다가오는 일")],
+      children: [
+        Expanded(child: Consumer<AppCalenderScheduler>(
+          builder: (context, data, index) {
+            var todoSchedules =
+                context.watch<AppCalenderScheduler>().todoSchedules.value;
+            print(todoSchedules.length);
+            return ListView.builder(
+                itemCount: todoSchedules.length,
+                itemBuilder: (context, index) {
+                  return ListTile(title: Text(todoSchedules[index].title));
+                });
+          },
+        ))
+      ],
     );
   }
 }

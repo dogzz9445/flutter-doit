@@ -1,11 +1,13 @@
 import 'dart:collection';
 import 'dart:core';
 
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:flutter/services.dart' show SystemUiOverlayStyle;
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Schedule extends ChangeNotifier {
@@ -23,6 +25,8 @@ class Schedule extends ChangeNotifier {
   String? _description;
   DateTime? _scheduleDate;
   Color? _color;
+
+  bool isChecked = false;
 
   String get title => _title;
   set title(String value) {
@@ -65,8 +69,25 @@ class Schedule extends ChangeNotifier {
 }
 
 class AppCalenderScheduler extends ChangeNotifier {
-  AppCalenderScheduler();
+  AppCalenderScheduler() {
+    loadTestData();
+    todoSchedules.value.addAll(getSchedulesForTodo());
+    addListener(() {
+      todoSchedules.value = getSchedulesForTodo();
+    });
+  }
+
   final schedules = <Schedule>[];
+  final selectedSchedules = ValueNotifier<List<Schedule>>([]);
+  final todoSchedules = ValueNotifier<List<Schedule>>([]);
+
+  DateTime? _selectedDay = DateTime.now();
+  DateTime get selectedDay => _selectedDay ?? DateTime.now();
+
+  set selectedDay(DateTime? day) {
+    _selectedDay = day ?? DateTime.now();
+    selectedSchedules.value = getSchedulesForSeletedDay(_selectedDay);
+  }
 
   void add(Schedule schedule) {
     schedule.addListener(notifyListeners);
@@ -74,10 +95,37 @@ class AppCalenderScheduler extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addAll(List<Schedule> schedules) {
+    this.schedules.addAll(schedules);
+    notifyListeners();
+  }
+
   void remove(Schedule schedule) {
     schedule.removeListener(notifyListeners);
     schedules.remove(schedule);
     notifyListeners();
+  }
+
+  void clear() {
+    schedules.clear();
+    selectedSchedules.value.clear();
+    todoSchedules.value.clear();
+  }
+
+  void loadTestData() {
+    clear();
+    addAll(kSchedules.values.first);
+    selectedDay = DateTime.now();
+  }
+
+  List<Schedule> getSchedulesForTodo() {
+    return schedules.where((element) => element.isChecked == false).toList();
+  }
+
+  List<Schedule> getSchedulesForSeletedDay(day) {
+    return schedules
+        .where((element) => isSameDay(element.scheduleDate, day))
+        .toList();
   }
 }
 

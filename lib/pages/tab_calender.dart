@@ -16,18 +16,15 @@ class CalenderView extends StatefulWidget {
 
 class _CalenderViewState extends State<CalenderView>
     with SingleTickerProviderStateMixin {
-  final ValueNotifier<List<Schedule>> _selectedSchedules = ValueNotifier([]);
-
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      TodoCalendar(
-          schedules: context.watch<AppCalenderScheduler>().schedules,
-          selectedSchedules: _selectedSchedules),
+      TodoCalendar(schedules: context.watch<AppCalenderScheduler>().schedules),
       const SizedBox(height: 3.0),
       Expanded(
         child: ValueListenableBuilder<List<Schedule>>(
-          valueListenable: _selectedSchedules,
+          valueListenable:
+              context.watch<AppCalenderScheduler>().selectedSchedules,
           builder: (context, value, _) {
             return ListView.builder(
               itemExtent: 56,
@@ -38,6 +35,16 @@ class _CalenderViewState extends State<CalenderView>
                     horizontal: 12.0,
                     vertical: 4.0,
                   ),
+                  // decoration: BoxDecoration(
+                  //     color: const Color(0x00E6EBEB),
+                  //     borderRadius: BorderRadius.circular(8.0),
+                  //     boxShadow: const [
+                  //       BoxShadow(
+                  //           color: Colors.black12,
+                  //           blurRadius: 2.0,
+                  //           spreadRadius: 2.0,
+                  //           offset: Offset(2, 2))
+                  //     ]),
                   child: InkWell(
                       customBorder: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -45,25 +52,17 @@ class _CalenderViewState extends State<CalenderView>
                       onTap: () {
                         print('${value[index]}');
                       },
-                      child: Ink(
-                          decoration: BoxDecoration(
-                              color: const Color(0xFFE6EBEB),
-                              borderRadius: BorderRadius.circular(8.0),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Colors.black12,
-                                    blurRadius: 2.0,
-                                    spreadRadius: 2.0,
-                                    offset: Offset(2, 2))
-                              ]),
+                      splashColor:
+                          Color.lerp(Color(0xFFEEEEEE), Color(0xFF888888), 0.5),
+                      child: Container(
                           child: ListTile(
-                            dense: true,
-                            leading: const Icon(Icons.navigate_next),
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 0.0, horizontal: 16.0),
-                            title: Text('${value[index]}'),
-                            trailing: const Icon(Icons.navigate_next),
-                          ))),
+                        dense: true,
+                        leading: const Icon(Icons.navigate_next),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 0.0, horizontal: 16.0),
+                        title: Text('${value[index]}'),
+                        trailing: const Icon(Icons.navigate_next),
+                      ))),
                 );
               },
             );
