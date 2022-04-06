@@ -1,7 +1,6 @@
 import 'dart:collection';
 import 'dart:core';
 
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
