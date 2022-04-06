@@ -19,13 +19,12 @@ class _TodoViewState extends State<TodoView>
         Expanded(child: Consumer<AppCalenderScheduler>(
           builder: (context, data, index) {
             var todoSchedules =
-                context.watch<AppCalenderScheduler>().todoSchedules;
-
+                context.watch<AppCalenderScheduler>().todoSchedules.value;
+            print(todoSchedules.length);
             return ListView.builder(
                 itemCount: todoSchedules.length,
                 itemBuilder: (context, index) {
-                  var schedule = todoSchedules[index];
-                  return ListTile(title: Text(schedule.title));
+                  return ListTile(title: Text(todoSchedules[index].title));
                 });
           },
         ))
