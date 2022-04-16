@@ -1,13 +1,10 @@
-// https://github.com/firebase/flutterfire/tree/master/packages/firebase_auth/firebase_auth
+// // https://github.com/firebase/flutterfire/tree/master/packages/firebase_auth/firebase_auth
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+// import 'package:flutter/foundation.dart';
+// import 'package:flutter/material.dart';
 
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_core/firebase_core.dart';
-
-// import 'auth.dart';
-// import 'profile.dart';
 
 // // Requires that the Firebase Auth emulator is running locally
 // // e.g via `melos run firebase:emulator`.
