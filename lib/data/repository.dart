@@ -43,24 +43,29 @@ class Repository extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Schedule> get schedules {
-    return schedules;
+  List<Schedule> get schedules => _schedules;
+
+  void add(Schedule schedule) {
+    schedule.addListener(notifyListeners);
+    _schedules.add(schedule);
   }
 
-  void Add(Schedule schedule) {
-    // 이벤트 등록하고 리스트에 넣기
+  void addRange(List<Schedule> schedules) {
+    _schedules.addAll(schedules);
   }
 
-  void AddRange(List<Schedule> schedules) {
-    // 이벤트 등록하고 리스트에 넣기
+  void remove(Schedule schedule) {
+    var selectedSchedule =
+        _schedules.firstWhere((element) => element == schedule);
+    selectedSchedule.removeListener(notifyListeners);
+    _schedules.remove(selectedSchedule);
   }
 
-  void Remove(Schedule schedule) {
-    // 이벤트 해제하고 제거
-  }
-
-  void Clear() {
-    // 이벤트 해제하고 제거
+  void clear() {
+    for (var schedule in _schedules) {
+      schedule.removeListener(notifyListeners);
+    }
+    _schedules.clear();
   }
 
   @override
