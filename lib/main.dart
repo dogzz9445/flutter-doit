@@ -86,7 +86,7 @@ class RootPage extends StatelessWidget {
       child: SplashPage(
           child: ChangeNotifierProvider(
         create: (_) => AppCalenderScheduler(),
-        child: HomePage(),
+        child: const HomePage(),
       )),
     );
   }

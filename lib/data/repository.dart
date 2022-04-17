@@ -1,3 +1,6 @@
+import 'dart:html';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:doit_calendar_todo/data/schedule.dart';
@@ -11,10 +14,44 @@ class Repository extends ChangeNotifier {
         _description = description,
         _defaultColor = defaultColor;
 
+  User? _owner;
   String _title;
   String _description;
   Color? _defaultColor;
+  bool? _isTodo;
+  bool? _isPrivate;
   final List<Schedule> _schedules = <Schedule>[];
+  final List<User> _participants = <User>[];
+  // invitedParticipants 추가하기
+  // 3일 주기? 반복하는지 넣기
+  // 미루면 자동으로 밀리는 옵션
+
+  bool? get isTodo => _isTodo;
+  set isTodo(bool? value) {
+    if (_isTodo == value) {
+      return;
+    }
+    _isTodo = value;
+    notifyListeners();
+  }
+
+  bool? get isPrivate => _isPrivate;
+  set isPrivate(bool? value) {
+    if (_isPrivate == value) {
+      return;
+    }
+    _isPrivate = value;
+    notifyListeners();
+  }
+
+  User? get owner => _owner;
+  set owner(User? value) {
+    if (_owner == value) {
+      return;
+    }
+    _owner = value;
+    notifyListeners();
+  }
 
   String get title => _title;
   set title(String value) {
