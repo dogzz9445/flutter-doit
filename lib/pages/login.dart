@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
+  static const String baseRoute = '/login';
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -28,23 +30,23 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Flexible(
-                      flex: 1,
-                      child: Image.asset(
-                        'assets/firebase_logo.png',
-                        height: 160,
-                      ),
-                    ),
+                  children: const <Widget>[
+                    // Flexible(
+                    //   flex: 1,
+                    //   child: Image.asset(
+                    //     'assets/firebase_logo.png',
+                    //     height: 160,
+                    //   ),
+                    // ),
                     SizedBox(height: 20),
-                    const Text(
+                    Text(
                       'FlutterFire',
                       style: TextStyle(
                         color: Colors.yellow,
                         fontSize: 40,
                       ),
                     ),
-                    const Text(
+                    Text(
                       'Authentication',
                       style: TextStyle(
                         color: Colors.orange,
@@ -58,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                 future: Authentication.initializeFirebase(context: context),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
-                    return Text('Error initializing Firebase');
+                    return const Text('Error initializing Firebase');
                   } else if (snapshot.connectionState == ConnectionState.done) {
                     return GoogleSignInButton();
                   }

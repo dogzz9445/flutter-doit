@@ -11,7 +11,6 @@ import 'package:doit_calendar_todo/data/app_settings.dart';
 import 'package:doit_calendar_todo/pages/backdrop.dart';
 import 'package:doit_calendar_todo/pages/home.dart';
 import 'package:doit_calendar_todo/pages/splash.dart';
-// import 'package:doit_calendar_todo/pages/splash.dart';
 import 'package:doit_calendar_todo/routes.dart';
 import 'package:doit_calendar_todo/theme/flutter_doit_theme_data.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -87,7 +86,7 @@ class RootPage extends StatelessWidget {
       child: SplashPage(
           child: ChangeNotifierProvider(
         create: (_) => AppCalenderScheduler(),
-        child: const HomePage(),
+        child: HomePage(),
       )),
     );
   }

@@ -21,3 +21,15 @@ samples, guidance on mobile development, and a full API reference.
 - 스케쥴 추가 기능 만들기
 - 스케쥴 묶음 이름 정하고 스케쥴 묶음 관련 기능 만들기
 - 
+
+
+
+
+# 유용하게 쓰는 메소드
+``` flutter
+Navigator.of(context).pushReplacement(
+    MaterialPageRoute(
+        builder: (context) => LoginPage(),
+    ),
+);
+```

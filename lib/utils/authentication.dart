@@ -5,6 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
+// class AuthenticationStore extends ChangeNotifier {
+//   bool _signedIn = false;
+//   bool get signedIn => _signedIn;
+//   User? _user;
+//   User? get user => _user;
+
+//   Future<void> signIn(User user) async {
+//     _user = user;
+//     _signedIn = true;
+//     notifyListeners();
+//   }
+
+//   Future<bool>
+// }
+
 class Authentication {
   static Future<FirebaseApp> initializeFirebase({
     required BuildContext context,

@@ -40,7 +40,7 @@ class RouteConfiguration {
       (context, match) => const RootPage(),
     ),
     Path(
-      r'^/login',
+      r'^' + LoginPage.baseRoute + r'/([\w-]+)$',
       (context, match) => const LoginPage(),
     ),
   ];
