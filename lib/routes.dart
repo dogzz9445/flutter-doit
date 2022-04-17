@@ -1,3 +1,4 @@
+import 'package:doit_calendar_todo/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:doit_calendar_todo/main.dart';
 import 'package:doit_calendar_todo/pages/home.dart';
@@ -37,6 +38,10 @@ class RouteConfiguration {
     Path(
       r'^/',
       (context, match) => const RootPage(),
+    ),
+    Path(
+      r'^/login',
+      (context, match) => const LoginPage(),
     ),
   ];
 
